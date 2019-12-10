@@ -23,8 +23,8 @@ Pure Array standard settings are defined and maintained in the *group_vars/all/v
 
 ## Setup
 
-- `git clone https://github/pure-storage-ansible.git`
-- `cd pure-storage-ansible`
+- `git clone https://github/ansible_pure_storage_array_config_template.git`
+- `cd ansible_pure_storage_array_config_template`
 - `python3 -m venv venv`
 - `source venv/bin/activate`
 - `pip install -r requirements.txt`
