@@ -1,0 +1,9 @@
+---
+  - name: Pure FlashArray Settings Configuration
+    include_tasks:
+      file: all.yml
+    vars:
+      url: "{{ item.value.fa_url }}"
+      api: "{{ item.value.api_token }}"
+      ds_uri: "{{ item.value.ds_uri }}"
+    loop: "{{ target_arrays|dict2items }}"

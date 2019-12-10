@@ -1,0 +1,20 @@
+---
+- name: Pure Storage FlashArray Settings
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: purearray_facts
+  tags: [ api ]
+
+- name: Pure Storage FlashArray SMI-S Setting
+  hosts: lab
+  gather_facts: no
+  tasks:
+    - name: Check SMI-S in Pure Array Configuration
+      command: puresmis list
+      register: smis
+      changed_when: "smis.stdout_lines|length == 0"
+    - debug:
+        msg:
+        - "{{ smis.stdout_lines }}"
+  tags: [ smis ]

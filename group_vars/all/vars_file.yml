@@ -1,0 +1,82 @@
+---
+# Directory services uri's
+uri_1: &ds_1 ldap://server1.example.com,ldap://server2.example.com
+uri_2: &ds_2 ldap://server3.example.com,ldap://server4.example.com
+uri_3: &ds_3 ldap://server5.example.com,ldap://server6.example.com
+
+lab_arrays: &lab_arrays_opts
+  lab:
+    fa_url: labarray
+    ds_uri: *ds_1
+    api_token: <vault_token_here>
+
+pure_arrays_all: &pure_arrays_all_opts
+  array1: &array1_opts
+    fa_url: array1.example.com
+    ds_uri: *ds_1
+    api_token: <vault_token_here>
+  array2: &array2_opts
+    fa_url: array2.example.com
+    ds_uri: *ds_2
+    api_token: <vault_token_here>
+  array3: &array3_opts
+    fa_url: array3.example.com
+    ds_uri: *ds_3
+    api_token: <vault_token_here>
+
+pure_arrays_nonprod: &pure_arrays_nonprod_opts
+  array1:
+        <<: *array1_opts
+
+pure_arrays_prod: &pure_arrays_prod_opts
+  array2:
+        <<: *array2_opts
+
+test_arrays: &test_arrays_opts
+  array3:
+        <<: *array3_opts
+
+target_arrays:
+             <<: *test_arrays_opts
+
+dns_address:
+  - 192.168.1.1
+dns_domain: example.com
+
+proxy_host: proxy.example.com
+proxy_port: 80
+
+ntp_servers:
+  - 192.168.1.1
+
+alert_emails:
+  - user@example.com
+
+syslog_servers:
+  syslog_server1:
+    address: syslog1
+    protocol: udp
+    port: "514"
+  syslog_server2:
+    address: syslog2
+    protocol: udp
+    port: "514"
+
+login_banner: "***W A R N I N G***\n\nTHIS IS A PRIVATE SYSTEM.\n"
+
+# SMTP Settings
+sender_domain: example.com
+relay_host: relay.example.com
+
+# Directory Services configuration
+base_dn: "DC=example,DC=com"
+bind_user: exampleuser
+bind_password: <vault_pass_here>
+          
+group_base: "basegroup"
+aa_group: "aa_group"
+sa_group: "sa_group"
+
+monitor_pass: <vault_here>
+
+

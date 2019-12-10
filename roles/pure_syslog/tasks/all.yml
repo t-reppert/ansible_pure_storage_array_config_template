@@ -1,0 +1,11 @@
+---
+  - name: Configure syslog settings for {{ url }}
+    purefa_syslog:
+      address: "{{ syslog.value.address }}"
+      protocol: "{{ syslog.value.protocol }}"
+      port: "{{ syslog.value.port }}"
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"
+    loop: "{{ syslog_servers|dict2items }}"
+    loop_control:
+      loop_var: syslog

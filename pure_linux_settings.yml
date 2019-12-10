@@ -1,0 +1,75 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  become: yes
+  ignore_errors: yes
+  vars:
+    - pure_rules_file: 99-pure-storage.rules
+  tasks:
+  - name: check if 99-pure-storage.rules exists
+    stat:
+      path: "{{ pure_rules_file }}"
+    register: purestorage_rules
+
+  - name: output whether rules file exists
+    debug:
+      msg: 
+        - var="{{ purestorage_rules }}"
+        - "Rules file doesn't exist!!"
+    when: purestorage_rules.stat.exists == false
+
+  - name: check if noop exists in file
+    lineinfile:
+      path: "{{ pure_rules_file }}"
+      line: "ACTION==\"add|change\", KERNEL==\"sd*[!0-9]\", SUBSYSTEM==\"block\", ENV{ID_VENDOR}==\"PURE\", ATTR{queue/scheduler}=\"noop\""
+      state: present
+    check_mode: yes
+    register: conf1
+    failed_when: (conf1 is changed) or (conf1 is failed)
+    when: purestorage_rules.stat.exists == true
+
+  - name: check if reduce cpu overhead setting exists in file
+    lineinfile:
+      path: "{{ pure_rules_file }}"
+      line: "ACTION==\"add|change\", KERNEL==\"sd*[!0-9]\", SUBSYSTEM==\"block\", ENV{ID_VENDOR}==\"PURE\", ATTR{queue/add_random}=\"0\""
+      state: present
+    check_mode: yes
+    register: conf2
+    failed_when: (conf2 is changed) or (conf2 is failed)
+    when: purestorage_rules.stat.exists == true
+
+  - name: check if spread cpu load setting exists in file
+    lineinfile:
+      path: "{{ pure_rules_file }}"
+      line: "ACTION==\"add|change\", KERNEL==\"sd*[!0-9]\", SUBSYSTEM==\"block\", ENV{ID_VENDOR}==\"PURE\", ATTR{queue/rq_affinity}=\"2\""
+      state: present
+    check_mode: yes
+    register: conf3
+    failed_when: (conf3 is changed) or (conf3 is failed)
+    when: purestorage_rules.stat.exists == true
+
+  - name: check if HBA timeout setting exists in file
+    lineinfile:
+      path: "{{ pure_rules_file }}"
+      line: "ACTION==\"add\", SUBSYSTEMS==\"scsi\", ATTRS{model}==\"FlashArray      \", RUN+=\"/bin/sh -c 'echo 60 > /sys/$DEVPATH/device/timeout'\""
+      state: present
+    check_mode: yes
+    register: conf3
+    failed_when: (conf3 is changed) or (conf3 is failed)
+    when: purestorage_rules.stat.exists == true
+
+  - name: collect multipath output
+    command: multipath -ll
+    register: multipath_out
+    ignore_errors: yes
+    check_mode: no
+    changed_when: no
+
+  - name: check if multipath output has failed paths
+    debug:
+      msg:
+        - "Failed paths found!  Need resolved prior to upgrade activity!"
+        - "{{ multipath_out.stdout_lines }}"
+    when: '"failed" in multipath_out.stdout or "disabled" in multipath_out.stdout'
+  

@@ -1,0 +1,18 @@
+---
+  - name: Get facts for {{ url }}
+    purefa_facts:
+      gather_subset: all
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"
+
+  - set_fact:
+      array_name: "{{ ansible_purefa_facts.default.array_name }}"
+
+  - name: Configure DNS server settings for {{ url }}
+    purefa_dns:
+      domain: "{{ dns_domain }}"
+      nameservers: "{{ dns_address }}"
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"
+    when: (ansible_purefa_facts.config.dns.domain != dns_domain) or
+          (ansible_purefa_facts.config.dns.nameservers != dns_address)

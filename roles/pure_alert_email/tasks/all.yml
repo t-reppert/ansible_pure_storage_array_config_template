@@ -1,0 +1,11 @@
+---
+  - name: Configure Alert Email for {{ url }}
+    purefa_alert:
+      address: "{{ email_item }}"
+      enabled: true
+      state: present
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"
+    loop: "{{ alert_emails }}"   
+    loop_control:
+      loop_var: email_item

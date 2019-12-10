@@ -1,0 +1,8 @@
+---
+  - name: Set Login Banner for {{ url }}
+    purefa_banner:
+      banner: "{{ login_banner }}"
+      state: present
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"
+

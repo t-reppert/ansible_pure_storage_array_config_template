@@ -1,0 +1,84 @@
+---
+- name: Pure Storage FlashArray Settings for monitor user
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_monitor_user
+  tags: [ 'api','monitor' ]
+
+- name: Pure Storage FlashArray Settings for login banner
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_banner
+  tags: [ 'api','banner' ]
+
+- name: Pure Storage FlashArray Settings for DNS
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_dns
+  tags: [ 'api','dns' ]
+
+- name: Pure Storage FlashArray Settings for Directory Services
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_ds
+  tags: [ 'api','ds' ]
+
+- name: Pure Storage FlashArray Settings for NTP
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_ntp
+  tags: [ 'api','ntp' ]
+
+- name: Pure Storage FlashArray Settings for Syslog servers
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_syslog
+  tags: [ 'api','syslog' ]
+
+- name: Pure Storage FlashArray Settings for SMTP
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_smtp
+  tags: [ 'api','smtp' ]
+
+- name: Pure Storage FlashArray Settings for PhoneHome
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_phonehome
+  tags: [ 'api','phonehome' ]
+
+- name: Pure Storage FlashArray Settings for Proxy
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_proxy
+  tags: [ 'api','proxy' ]
+
+- name: Pure Storage FlashArray Settings for Alert Email
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_alert_email
+  tags: [ 'api','alert_email' ]
+
+- name: Pure Storage FlashArray SMI-S Setting
+  hosts: lab
+  gather_facts: no
+  tasks:
+    - name: Check SMI-S in Pure Array Configuration
+      command: puresmis list
+      register: smis
+      changed_when: "smis.stdout_lines|length == 0"
+
+    - name: Enable SMI-S if needed
+      command: puresmis enable
+      when: '"disabled" in " ".join(smis.stdout_lines)'
+  tags: [ 'smis' ]

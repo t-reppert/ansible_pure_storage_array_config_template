@@ -1,0 +1,7 @@
+---
+  - name: Configure SMTP settings for {{ url }}
+    purefa_smtp:
+      sender_domain: "{{ sender_domain }}"
+      relay_host: "{{ relay_host }}"
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"

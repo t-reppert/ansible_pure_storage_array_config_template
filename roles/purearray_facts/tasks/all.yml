@@ -1,0 +1,26 @@
+---
+  - name: Get facts for {{ url }}
+    purefa_facts:
+      gather_subset: all
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"
+  
+  - name: Facts for {{ url }}
+    debug:
+      msg: 
+      - "array_name : {{ ansible_purefa_facts.default.array_name }}"
+      - "array_model : {{ ansible_purefa_facts.default.array_model }}"
+      - "purity_version : {{ ansible_purefa_facts.default.purity_version }}"
+      - "hosts : {{ ansible_purefa_facts.default.hosts }}"
+      - "phonehome : {{ ansible_purefa_facts.config.phonehome }}"
+      - "proxy: {{ ansible_purefa_facts.config.proxy }}"
+      - "syslog servers : {{ ansible_purefa_facts.config.syslog }}"
+      - "dns : {{ ansible_purefa_facts.config.dns }}"
+      - "ntp : {{ ansible_purefa_facts.config.ntp }}"
+      - "ds uris: {{ ansible_purefa_facts.config.directory_service.uri }}"
+      - "ds bind_user: {{ ansible_purefa_facts.config.directory_service.bind_user }}"
+      - "smtp relayhost : {{ ansible_purefa_facts.config.relayhost }}"
+      - "vip : {{ ansible_purefa_facts.network.vir0.address }}"
+      - "ct0 : {{ ansible_purefa_facts.network['ct0.eth0'].address }}"
+      - "ct1 : {{ ansible_purefa_facts.network['ct1.eth0'].address }}"
+

@@ -1,0 +1,7 @@
+---
+  - name: Configure proxy setting for {{ url }}
+    purefa_proxy:
+      host: "{{ proxy_host }}"
+      port: "{{ proxy_port }}"
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"

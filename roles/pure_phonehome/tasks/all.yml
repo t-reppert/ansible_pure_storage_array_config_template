@@ -1,0 +1,5 @@
+---
+  - name: Enable phonehome for {{ url }}
+    purefa_phonehome:
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"

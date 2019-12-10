@@ -1,0 +1,14 @@
+ansible==2.8.6
+certifi==2019.9.11
+cffi==1.13.0
+chardet==3.0.4
+cryptography==2.8
+idna==2.8
+Jinja2==2.10.3
+MarkupSafe==1.1.1
+purestorage==1.17.0
+pycparser==2.19
+PyYAML==5.1.2
+requests==2.22.0
+six==1.12.0
+urllib3==1.25.6
