@@ -1,4 +1,4 @@
-ansible==2.8.6
+ansible==2.8.8
 certifi==2019.9.11
 cffi==1.13.0
 chardet==3.0.4
