@@ -1,24 +1,25 @@
 ---
   - name: Get facts for {{ url }}
-    purefa_facts:
+    purefa_info:
       gather_subset: all
       fa_url: "{{ url }}"
       api_token: "{{ api }}"
+    register: array_facts
 
   - set_fact:
-      array_name: "{{ ansible_purefa_facts.default.array_name }}"
+      array_name: "{{ array_facts.purefa_info.default.array_name }}"
 
   - name: Create new user ai6disc with API token for {{ url }}
     purefa_user:
       name: ai6disc
-      password: "{{ ai6disc_pass }}"
+      password: "{{ monitor_pass }}"
       role: readonly
       api: true
       fa_url: "{{ url }}"
       api_token: "{{ api }}"
-    when: '"ai6disc" not in ansible_purefa_facts.admins'
+    when: '"ai6disc" not in array_facts.purefa_info.admins'
 
   - name: API Token
     debug:
       msg: "API Token: {{ ansible_facts['user_api'] }}"
-    when: '"ai6disc" not in ansible_purefa_facts.admins'
+    when: '"ai6disc" not in array_facts.purefa_info.admins'

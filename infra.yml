@@ -20,6 +20,13 @@
     - role: pure_dns
   tags: [ 'api','dns' ]
 
+- name: Pure Storage FlashArray Settings for Directory Service Roles
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_dsrole
+  tags: [ 'api','dsrole' ]
+
 - name: Pure Storage FlashArray Settings for Directory Services
   hosts: localhost
   gather_facts: no
@@ -40,6 +47,13 @@
   roles:
     - role: pure_syslog
   tags: [ 'api','syslog' ]
+
+- name: Pure Storage FlashArray Settings for SNMP
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: pure_snmp
+  tags: [ 'api','snmp' ]
 
 - name: Pure Storage FlashArray Settings for SMTP
   hosts: localhost

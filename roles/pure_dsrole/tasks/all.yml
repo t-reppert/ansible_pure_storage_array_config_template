@@ -1,0 +1,11 @@
+---
+  - name: Configure Directory Service Roles for {{ url }}
+    purefa_dsrole:
+      role: "{{ ds_role.value.role }}"
+      group_base: "{{ ds_role.value.group_base }}"
+      group: "{{ ds_role.value.group }}"
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"
+    loop: "{{ ds_roles|dict2items }}"
+    loop_control:
+      loop_var: ds_role

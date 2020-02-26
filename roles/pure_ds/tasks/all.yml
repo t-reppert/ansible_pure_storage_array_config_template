@@ -1,17 +1,15 @@
 ---
   - name: Get facts for {{ url }}
-    purefa_facts:
+    purefa_info:
       gather_subset: all
       fa_url: "{{ url }}"
       api_token: "{{ api }}"
+    register: array_facts
 
   - set_fact:
-      array_base_dn: "{{ ansible_purefa_facts.config.directory_service.base_dn }}"
-      array_bind_user: "{{ ansible_purefa_facts.config.directory_service.bind_user }}"
-      array_uri: "{{ ansible_purefa_facts.config.directory_service.uri | join(',') }}"
-      array_group_base: "{{ ansible_purefa_facts.config.directory_service.group_base }}"
-      array_sa_group: "{{ ansible_purefa_facts.config.directory_service.storage_admin_group }}"
-      array_aa_group: "{{ ansible_purefa_facts.config.directory_service.array_admin_group }}"
+      array_base_dn: "{{ array_facts.purefa_info.config.directory_service.base_dn }}"
+      array_bind_user: "{{ array_facts.purefa_info.config.directory_service.bind_user }}"
+      array_uri: "{{ array_facts.purefa_info.config.directory_service.uri | join(',') }}"
 
   # Delete Current Directory Service config if any of the current settings do not match standard
   - name: Clear Directory Services configuration for {{ url }}
@@ -21,10 +19,7 @@
       api_token: "{{ api }}"
     when: (array_base_dn != base_dn) or
           (array_bind_user != bind_user) or
-          (array_uri != ds_uri) or
-          (array_group_base != group_base) or
-          (array_aa_group != aa_group) or
-          (array_sa_group != sa_group)
+          (array_uri != ds_uri)
 
   # Create or recreate Directory Service config
   - name: Configure Directory Services for {{ url }}
@@ -34,8 +29,5 @@
       base_dn: "{{ base_dn }}"
       bind_user: "{{ bind_user }}"
       bind_password: "{{ bind_password }}"
-      group_base: "{{ group_base }}"
-      aa_group: "{{ aa_group }}"
-      sa_group: "{{ sa_group }}"
       fa_url: "{{ url }}"
       api_token: "{{ api }}"

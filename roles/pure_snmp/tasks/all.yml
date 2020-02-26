@@ -1,0 +1,8 @@
+---
+  - name: Configure SNMP v2c settings for {{ url }}
+    purefa_snmp:
+      name: "{{ snmp_manager }}"
+      community: "{{ snmp_community }}"
+      host: "{{ snmp_host }}"
+      fa_url: "{{ url }}"
+      api_token: "{{ api }}"
