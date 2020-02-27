@@ -1,16 +1,17 @@
 ---
   - name: Get facts for {{ url }}
-    purefa_facts:
+    purefa_info:
       gather_subset: all
       fa_url: "{{ url }}"
       api_token: "{{ api }}"
+    register: array_facts
 
   - set_fact:
-      array_name: "{{ ansible_purefa_facts.default.array_name }}"
+      array_name: "{{ array_facts.purefa_info.default.array_name }}"
 
   - name: Set NTP for {{ url }}
     purefa_ntp:
       ntp_servers: "{{ ntp_servers }}"
       fa_url: "{{ url }}"
       api_token: "{{ api }}"
-    when: ansible_purefa_facts.config.ntp != ntp_servers
+    when: array_facts.purefa_info.config.ntp != ntp_servers

@@ -1,26 +1,27 @@
 ---
   - name: Get facts for {{ url }}
-    purefa_facts:
+    purefa_info:
       gather_subset: all
       fa_url: "{{ url }}"
       api_token: "{{ api }}"
+    register: array_facts
   
   - name: Facts for {{ url }}
     debug:
       msg: 
-      - "array_name : {{ ansible_purefa_facts.default.array_name }}"
-      - "array_model : {{ ansible_purefa_facts.default.array_model }}"
-      - "purity_version : {{ ansible_purefa_facts.default.purity_version }}"
-      - "hosts : {{ ansible_purefa_facts.default.hosts }}"
-      - "phonehome : {{ ansible_purefa_facts.config.phonehome }}"
-      - "proxy: {{ ansible_purefa_facts.config.proxy }}"
-      - "syslog servers : {{ ansible_purefa_facts.config.syslog }}"
-      - "dns : {{ ansible_purefa_facts.config.dns }}"
-      - "ntp : {{ ansible_purefa_facts.config.ntp }}"
-      - "ds uris: {{ ansible_purefa_facts.config.directory_service.uri }}"
-      - "ds bind_user: {{ ansible_purefa_facts.config.directory_service.bind_user }}"
-      - "smtp relayhost : {{ ansible_purefa_facts.config.relayhost }}"
-      - "vip : {{ ansible_purefa_facts.network.vir0.address }}"
-      - "ct0 : {{ ansible_purefa_facts.network['ct0.eth0'].address }}"
-      - "ct1 : {{ ansible_purefa_facts.network['ct1.eth0'].address }}"
+      - "array_name : {{ array_facts.purefa_info.default.array_name }}"
+      - "array_model : {{ array_facts.purefa_info.default.array_model }}"
+      - "purity_version : {{ array_facts.purefa_info.default.purity_version }}"
+      - "hosts : {{ array_facts.purefa_info.default.hosts }}"
+      - "phonehome : {{ array_facts.purefa_info.config.phonehome }}"
+      - "proxy: {{ array_facts.purefa_info.config.proxy }}"
+      - "syslog servers : {{ array_facts.purefa_info.config.syslog }}"
+      - "dns : {{ array_facts.purefa_info.config.dns }}"
+      - "ntp : {{ array_facts.purefa_info.config.ntp }}"
+      - "ds uris: {{ array_facts.purefa_info.config.directory_service.uri }}"
+      - "ds bind_user: {{ array_facts.purefa_info.config.directory_service.bind_user }}"
+      - "smtp relayhost : {{ array_facts.purefa_info.config.relayhost }}"
+      - "vip : {{ array_facts.purefa_info.network.vir0.address }}"
+      - "ct0 : {{ array_facts.purefa_info.network['ct0.eth0'].address }}"
+      - "ct1 : {{ array_facts.purefa_info.network['ct1.eth0'].address }}"
 

@@ -6,17 +6,9 @@ Pure Array standard settings are defined and maintained in the *group_vars/all/v
 
 ## Requirements
 
-- Ansible 2.8+
-- Latest Pure Storage Ansible Modules (see https://galaxy.ansible.com/purestorage/flasharray)
-    - These may need to be manually downloaded and added to the Ansible module path under *ansible/modules/storage/purestorage*
-        - purefa_alert.py
-        - purefa_banner.py
-        - purefa_phonehome.py
-        - purefa_proxy.py
-        - purefa_smtp.py
-        - purefa_snmp.py
-        - purefa_syslog.py
-
+- Ansible 2.9+
+- FlashArray running Purity 5.2.0 or higher
+- Latest Pure Storage Ansible Modules Collections 
 - See requirements.txt for more requirements
 - Vault password file (~/.vault-pass)
 - TCP Ports 443 and 22 open between Ansible server and Pure Arrays
@@ -29,7 +21,6 @@ Pure Array standard settings are defined and maintained in the *group_vars/all/v
 - `source venv/bin/activate`
 - `pip install -r requirements.txt`
 - Make sure ~/.vault-pass has correct vault password
-- Make sure the latest modules mentioned in previous section are downloaded and copied into *venv/lib/python3.6/site-packages/ansible/modules/storage/purestorage/*
 - To test, execute the following:  `ansible-playbook infra_facts.yml --tags api`
 
 ## Adding/Removing Pure Arrays
@@ -85,10 +76,12 @@ Pure Array standard settings are defined and maintained in the *group_vars/all/v
         - banner
         - dns
         - ds
+        - dsrole
         - ntp
         - phonehome
         - proxy
         - smtp
+        - snmp
         - syslog
     - Example: `ansible-playbook infra.yml --tags dns,ntp,proxy,syslog`
 

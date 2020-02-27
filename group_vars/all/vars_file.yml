@@ -68,14 +68,33 @@ login_banner: "***W A R N I N G***\n\nTHIS IS A PRIVATE SYSTEM.\n"
 sender_domain: example.com
 relay_host: relay.example.com
 
+# SNMP Settings
+snmp_manager: manager
+snmp_host: snmp.example.com
+snmp_community: public
+
 # Directory Services configuration
 base_dn: "DC=example,DC=com"
 bind_user: exampleuser
 bind_password: <vault_pass_here>
           
-group_base: "basegroup"
-aa_group: "aa_group"
-sa_group: "sa_group"
+ds_roles:
+  ds_role1:
+    role: array_admin
+    group_base: "OU=basegroup"
+    group: arrayadmins
+  ds_role2:
+    role: ops_admin
+    group_base: "OU=basegroup"
+    group: opsgroup
+  ds_role3:
+    role: storage_admin
+    group_base: "OU=basegroup"
+    group: storage_group
+  ds_role4:
+    role: readonly
+    group_base: "OU=basegroup"
+    group: ro_group
 
 monitor_pass: <vault_here>
 
