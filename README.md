@@ -23,6 +23,10 @@ Pure Array standard settings are defined and maintained in the *group_vars/all/v
 - Make sure ~/.vault-pass has correct vault password
 - To test, execute the following:  `ansible-playbook infra_facts.yml --tags api`
 
+## Recommended Documentation
+
+- <https://docs.ansible.com/ansible/latest/collections/purestorage/flasharray/index.html>
+
 ## Adding/Removing Pure Arrays
 
 ### Adding
