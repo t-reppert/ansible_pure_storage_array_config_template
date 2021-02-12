@@ -7,6 +7,7 @@ Pure Array standard settings are defined and maintained in the *group_vars/all/v
 ## Requirements
 
 - Ansible 2.9+
+- PureStorage Python Library (<https://pythonhosted.org//purestorage/installation.html>)
 - FlashArray running Purity 5.2.0 or higher
 - Latest Pure Storage Ansible Modules Collections 
 - See requirements.txt for more requirements
