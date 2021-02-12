@@ -25,6 +25,7 @@ Pure Array standard settings are defined and maintained in the *group_vars/all/v
 
 ## Recommended Documentation
 
+- <https://blog.purestorage.com/purely-technical/ansible-collections-pure-storage/>
 - <https://docs.ansible.com/ansible/latest/collections/purestorage/flasharray/index.html>
 
 ## Adding/Removing Pure Arrays
