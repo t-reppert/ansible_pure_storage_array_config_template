@@ -8,7 +8,7 @@ Jinja2==2.11.1
 MarkupSafe==1.1.1
 purestorage==1.18.1
 pycparser==2.19
-PyYAML==5.3
+PyYAML==5.4
 requests==2.23.0
 six==1.14.0
 urllib3==1.26.5
